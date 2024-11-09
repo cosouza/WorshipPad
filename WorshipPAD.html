@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pad Worship Controller</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            width: 60%;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 15px;
+            text-align: center;
+        }
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .pad-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: #fff;
+        }
+        .pad-button:hover {
+            background-color: #0056b3;
+        }
+        .stop-button {
+            background-color: #FF4B4B;
+        }
+        .stop-button:hover {
+            background-color: #CC0000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pad Worship Controller</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome do Pad</th>
+                <th>Controles</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Linha para o Pad C -->
+            <tr>
+                <td>PAD C</td>
+                <td>
+                    <button class="pad-button" onclick="playAudio('audio-C')">Start</button>
+                    <button class="pad-button stop-button" onclick="fadeOut('audio-C')">Stop</button>
+                </td>
+                <audio id="audio-C" src="C:\Users\cosouza\OneDrive - NOS SGPS, S.A\Documents\Workship\G_PAD_Acean.mp3" preload="auto"></audio>
+            </tr>
+            <!-- Linha para o Pad D -->
+            <tr>
+                <td>PAD D</td>
+                <td>
+                    <button class="pad-button" onclick="playAudio('audio-D')">Start</button>
+                    <button class="pad-button stop-button" onclick="fadeOut('audio-D')">Stop</button>
+                </td>
+                <audio id="audio-D" src="C:\Users\cosouza\OneDrive - NOS SGPS, S.A\Documents\Workship\D_Pad_trad.mp3" preload="auto"></audio>
+            </tr>
+            <!-- Linha para o Pad E -->
+            <tr>
+                <td>PAD E</td>
+                <td>
+                    <button class="pad-button" onclick="playAudio('audio-E')">Start</button>
+                    <button class="pad-button stop-button" onclick="fadeOut('audio-E')">Stop</button>
+                </td>
+                <audio id="audio-E" src="E - PAD.mp3" preload="auto"></audio>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function playAudio(id) {
+            const audio = document.getElementById(id);
+            audio.volume = 1; // Reset volume to full when starting
+            audio.play();
+        }
+
+        function fadeOut(id) {
+            const audio = document.getElementById(id);
+            let volume = audio.volume;
+
+            if (!audio.paused) {
+                const fadeInterval = setInterval(() => {
+                    if (volume > 0.01) {
+                        volume -= 0.01; // Decrease volume gradually
+                        audio.volume = Math.max(volume, 0); // Ensure volume doesn't go below 0
+                    } else {
+                        clearInterval(fadeInterval);
+                        audio.pause();
+                        audio.currentTime = 0; // Reset playback position
+                    }
+                }, 50); // Adjust the interval speed for faster/slower fade
+            }
+        }
+    </script>
+</body>
+</html>
